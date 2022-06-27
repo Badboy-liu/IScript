@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="562.0" prefWidth="712.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.javalearn.iScript.controller.MainController">
+   <children>
+      <Pane layoutX="57.0" layoutY="33.0" prefHeight="499.0" prefWidth="235.0">
+         <children>
+            <TextArea fx:id="paramText" layoutX="14.0" layoutY="196.0" prefHeight="166.0" prefWidth="211.0" promptText="param" style="-fx-background-color: #808080;" />
+            <ChoiceBox fx:id="RequestMethod" layoutX="160.0" layoutY="423.0" prefHeight="27.0" prefWidth="64.0" />
+            <Button fx:id="startButton" layoutX="126.0" layoutY="459.0" mnemonicParsing="false" onAction="#startSend" prefHeight="31.0" prefWidth="99.0" text="启动脚本" />
+            <TextArea fx:id="headerText" layoutX="14.0" layoutY="14.0" prefHeight="166.0" prefWidth="211.0" promptText="header" style="-fx-background-color: #808080;" />
+            <ChoiceBox fx:id="sendNum" layoutX="23.0" layoutY="422.0" prefHeight="27.0" prefWidth="64.0">
+               <cursor>
+                  <Cursor fx:constant="DEFAULT" />
+               </cursor></ChoiceBox>
+            <TextField fx:id="urlText" layoutX="12.0" layoutY="371.0" prefHeight="25.0" prefWidth="211.0" style="-fx-background-color: #808080;" />
+            <Separator layoutX="255.0" layoutY="241.0" prefHeight="3.0" prefWidth="397.0" />
+            <Label layoutX="126.0" layoutY="427.0" text="请求" />
+            <Button fx:id="saveButton" layoutX="-12.0" layoutY="459.0" mnemonicParsing="false" onAction="#saveConfig" prefHeight="31.0" prefWidth="99.0" text="保存配置" />
+            <Separator layoutX="-54.0" layoutY="410.0" prefHeight="3.0" prefWidth="307.0" />
+         </children>
+      </Pane>
+      <Pane layoutX="14.0" layoutY="22.0" prefHeight="518.0" prefWidth="64.0">
+         <children>
+            <Label layoutY="40.0" prefHeight="23.0" prefWidth="55.0" text="header" textAlignment="CENTER" textOverrun="CLIP">
+               <font>
+                  <Font name="Georgia" size="15.0" />
+               </font>
+            </Label>
+            <Label layoutY="209.0" prefHeight="23.0" prefWidth="55.0" text="param" textAlignment="CENTER" textOverrun="CLIP">
+               <font>
+                  <Font name="Georgia" size="15.0" />
+               </font>
+            </Label>
+            <Label layoutX="5.0" layoutY="386.0" prefHeight="23.0" prefWidth="55.0" text="url" textAlignment="CENTER" textOverrun="CLIP">
+               <font>
+                  <Font name="Georgia" size="15.0" />
+               </font>
+            </Label>
+            <Label layoutX="34.0" layoutY="439.0" text="次数" />
+         </children>
+      </Pane>
+      <Pane layoutX="322.0" layoutY="17.0" prefHeight="530.0" prefWidth="377.0">
+         <children>
+            <TextArea fx:id="logText" layoutX="4.0" layoutY="47.0" prefHeight="194.0" prefWidth="367.0" style="-fx-background-color: #808080;" />
+            <Label layoutX="14.0" layoutY="3.0" prefHeight="23.0" prefWidth="55.0" text="log" textAlignment="CENTER" textOverrun="CLIP">
+               <font>
+                  <Font name="Georgia" size="15.0" />
+               </font>
+            </Label>
+            <Separator layoutX="-13.0" layoutY="-19.0" orientation="VERTICAL" prefHeight="540.0" prefWidth="7.0" />
+            <TextArea fx:id="logText1" layoutX="5.0" layoutY="317.0" prefHeight="194.0" prefWidth="367.0" style="-fx-background-color: #808080;" />
+            <Label layoutX="14.0" layoutY="276.0" prefHeight="23.0" prefWidth="55.0" text="response" textAlignment="CENTER" textOverrun="CLIP">
+               <font>
+                  <Font name="Georgia" size="15.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <Separator layoutX="311.0" layoutY="48.0" prefHeight="3.0" prefWidth="397.0" />
+      <Separator layoutX="4.0" layoutY="538.0" prefHeight="3.0" prefWidth="703.0" />
+      <Separator layoutX="312.0" layoutY="317.0" prefHeight="3.0" prefWidth="397.0" />
+   </children>
+</Pane>
