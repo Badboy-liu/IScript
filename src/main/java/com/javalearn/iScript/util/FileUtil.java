@@ -12,8 +12,8 @@ import java.util.Map;
 
 public abstract class FileUtil {
     static {
-        URL resource = MainController.class.getResource("");
-        rootPath =resource.getPath();
+        File file=new File("");
+        rootPath =file.getAbsolutePath();
     }
 
     private static Map<String,RandomAccessFile> fileMap= Maps.newConcurrentMap();

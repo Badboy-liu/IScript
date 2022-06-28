@@ -1,21 +1,21 @@
 package com.javalearn.iScript.controller;
 
 import cn.hutool.core.util.StrUtil;
+import cn.hutool.core.util.URLUtil;
+import com.javalearn.iScript.constant.ErrorConstant;
+import com.javalearn.iScript.constant.MessageConstant;
+import com.javalearn.iScript.util.DialogUtil;
 import com.javalearn.iScript.util.FileUtil;
-import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.*;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.*;
-import javafx.util.Callback;
 import org.kordamp.ikonli.javafx.Icon;
 
 import java.io.Closeable;
 import java.io.IOException;
 import java.io.RandomAccessFile;
-import java.util.function.Consumer;
 
 public class MainController implements Closeable {
 
@@ -44,7 +44,7 @@ public class MainController implements Closeable {
     @FXML
     private ChoiceBox<String> sendNum;
 
-    public void initChoiceBox() {
+    public void init() {
         ObservableList<String> methodList = FXCollections.observableArrayList("GET","POST","DELETE","PUT");
         RequestMethod.setItems(methodList);
         RequestMethod.getSelectionModel().selectFirst();
@@ -79,56 +79,43 @@ public class MainController implements Closeable {
     }
 
     private boolean checkData() {
-        if (StrUtil.hasBlank(urlText.getText())){
-            buildDialog("url不能为空",urlText.textProperty()::setValue);
+        if (StrUtil.hasBlank(urlText.getText())) {
+            DialogUtil.buildDialog(ErrorConstant.URL_ERROR, urlText.textProperty()::setValue);
             return false;
-        }
-        if (StrUtil.hasBlank(paramText.getText())){
-            buildDialog("参数不能为空",paramText.textProperty()::setValue);
+        } else if (StrUtil.hasBlank(paramText.getText())) {
+            DialogUtil.buildDialog(ErrorConstant.PARAM_ERROR, paramText.textProperty()::setValue);
             return false;
-        }
-        if (StrUtil.hasBlank(headerText.getText())){
-            buildDialog("头不能为空",headerText.textProperty()::setValue);
+        } else if (StrUtil.hasBlank(headerText.getText())) {
+            DialogUtil.buildDialog(ErrorConstant.HEADER_ERROR, headerText.textProperty()::setValue);
             return false;
         }
         return true;
     }
 
-    private <T extends StringProperty> void buildDialog(String message, Consumer<String> text) {
-        TextInputDialog dialog = new TextInputDialog();
-        dialog.setContentText(message);
-        dialog.show();
-        Callback<ButtonType, String> resultConverter = dialog.getResultConverter();
 
-        DialogPane dialogPane = dialog.getDialogPane();
-        Node node = dialogPane.lookupButton(ButtonType.OK);
-        node.setOnMousePressed(mouseEvent -> {
-            if (mouseEvent.getButton().name().equals("PRIMARY")) {
-                text.accept(resultConverter.call(ButtonType.OK));
-            }
-        });
-    }
 
-    private <T extends StringProperty> void buildDialog(String message) {
-        Alert dialog = new Alert(Alert.AlertType.WARNING,message);
-        dialog.setContentText(message);
-        dialog.show();
-    }
+
 
     @FXML
     void startSend(ActionEvent event) throws IOException {
+        String message ;
+
         if (!isRun){
-            isRun=true;
-            startButton.setText("停止脚本");
+            message = setText(MessageConstant.STOP_MESSAGE,true);
         }else {
-            startButton.setText("启动脚本");
-            isRun=false;
+            message = setText(MessageConstant.START_MESSAGE,false);
         }
 
-        String startStr= "脚本开始\n";
-        logText.appendText(startStr);
+        logText.appendText(message);
         RandomAccessFile logFile = FileUtil.getLogText();
-        logFile.write((startStr).getBytes("GBK"));
+        logFile.write((message).getBytes("GBK"));
+    }
+
+
+    private String setText(String message,boolean value) {
+        startButton.setText(message);
+        isRun=value;
+        return message;
     }
 
 
